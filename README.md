@@ -6,7 +6,7 @@ Buscapé Marketplace
 
 Principais interações que podem ser realizadas entre parceiros (consumidores) e a API Pedidos Buscapé.
 
-![](/download/attachments/73077869/Fluxo_Buscape_Marketplace.png?version=3&modificationDate=1493672020000&api=v2 "Buscapé Checkout > Integração Pedidos - V2 > Fluxo_Buscape_Marketplace.png")
+![Fluxo de interações](/api-pedidos-v2/images/Fluxo_Buscape_Marketplace.png)
 
 Obs.: Os e-mails transacionais que reportam o status do pedido para os clientes devem ser desabilitados. Esse tipo de e-mail já é enviado pelo Buscapé Marketplace.
 
@@ -15,6 +15,7 @@ Obs.: Os e-mails transacionais que reportam o status do pedido para os clientes 
 A consulta de pedido retorna o pedido no momento atual. O pedido pode está nos seguintes status:
 
 | Status de pedido | Descrição |
+| -----------------| ----------|
 | new | Pedido novo no Buscapé Marketplace |
 | accept | Pedido aceito pelo parceiro |
 | not_accept | Pedido recusado pelo parceiro |
@@ -118,6 +119,7 @@ O Buscapé Marketplace disponibiliza o serviço para registrar uma nova operaç�
 O status do tracking é definido no atributo **tracking.controlPoint** através dos seguintes status:
 
 | Status de Tracking | Descrição |
+| ------------------ | --------- |
 | invoiced | Pedido Faturado |
 | in_hosting | Item na transportadora |
 
@@ -127,8 +129,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 *   Status **invoiced**:
 
-<colgroup><col><col></colgroup>
 | **Atributo** | **Descrição** |
+| ------------ | --------------|
 | item | Item alterado pela operação de tracking |
 | item.sku | SKU do Buscapé |
 | item.skuSellerId | SKU do parceiro |
@@ -146,8 +148,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 *   Status **in_hosting**: 
     Nesse status pode enviar <span>**trackingNumber** e/ou **carrier**, além dos demais atributos.</span>
 
-<colgroup><col><col></colgroup>
 | **Atributo** | **Descrição** |
+| ------------ | ------------- |
 | item | Item alterado pela operação de tracking |
 | item.sku | SKU do Buscapé |
 | item.skuSellerId | SKU do parceiro |
@@ -165,9 +167,6 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 #### 6.1 - Orders 
 
-![](/plugins/servlet/confluence/placeholder/macro?definition=e2FuY2hvcjpPcmRlcnN9&locale=pt_BR&version=2)
-
-| 
 
 <pre>{
    "orderID":"string",
@@ -274,10 +273,9 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
    ]
 }</pre>
 
- |
 
-<colgroup><col> <col></colgroup>
 | **Atributo** | **Descrição** |
+| ------------ | ------------- |
 | orderID | ID Buscapé |
 | orderStatus | Status do pedido |
 | sellerOrder | ID pedido no parceiro |
@@ -362,9 +360,6 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 ##### 6.2.1 - Stock Request
 
-![](/plugins/servlet/confluence/placeholder/macro?definition=e2FuY2hvcjpTdG9ja1JlcXVlc3R9&locale=pt_BR&version=2)
-
-| 
 
 <pre>{
     "buscapeID" : "string",
@@ -375,13 +370,10 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
     }]
 }</pre>
 
- |
 
 ##### 6.2.1 - Stock Response
 
-![](/plugins/servlet/confluence/placeholder/macro?definition=e2FuY2hvcjpTdG9ja1Jlc3BvbnNlfQ&locale=pt_BR&version=2)
 
-| 
 
 <pre>{[
     "buscapeID" : "number", 
@@ -391,13 +383,11 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
     "message" : "string"
 ]}</pre>
 
- |
+
 
 #### 6.3 - Notification
 
-![](/plugins/servlet/confluence/placeholder/macro?definition=e2FuY2hvcjpOb3RpZmljYXRpb259&locale=pt_BR&version=2)
 
-| 
 
 <pre>{
    "eventDate":"date",
@@ -406,13 +396,9 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
    "order":"order"
 }</pre>
 
- |
 
 #### 6.4 - Acceptance
 
-![](/plugins/servlet/confluence/placeholder/macro?definition=e2FuY2hvcjpBY2NlcHRhbmNlfQ&locale=pt_BR&version=2)
-
-| 
 
 <pre> {
     "eventDate":"date",
@@ -425,9 +411,6 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 #### 6.5 - Tracking
 
-![](/plugins/servlet/confluence/placeholder/macro?definition=e2FuY2hvcjpUcmFja2luZ30&locale=pt_BR&version=2)
-
-| 
 
 <pre> [
    {
@@ -468,7 +451,6 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
    }
 ]</pre>
 
- |
 
 ### 7 - Tecnologias e Padrões
 
