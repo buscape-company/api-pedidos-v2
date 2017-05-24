@@ -167,8 +167,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 #### 6.1 - Orders 
 
-
-<pre>{
+```json
+{
    "orderID":"string",
    "orderStatus":"string",
    "orderedItems":[
@@ -271,7 +271,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
          ]
       }
    ]
-}</pre>
+}
+```
 
 
 | **Atributo** | **Descrição** |
@@ -360,59 +361,67 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 ##### 6.2.1 - Stock Request
 
-
-<pre>{
+```json
+{
     "buscapeID" : "string",
-    "orderedItems": [{
+    "orderedItems": [
+      {
         "skuSellerId" : "string",
         "quantity" : "number",
         "postalCode" : "string"
-    }]
-}</pre>
+      }
+    ]
+}
+```
 
 
 ##### 6.2.1 - Stock Response
 
 
-
-<pre>{[
-    "buscapeID" : "number", 
-    "skuSellerId" : "number",
-    "available" : "number",
-    "crossDockingTime":"number",    
-    "message" : "string"
-]}</pre>
+```json
+{
+   [
+      "buscapeID" : "number", 
+      "skuSellerId" : "number",
+      "available" : "number",
+      "crossDockingTime":"number",    
+      "message" : "string"
+   ]
+}
+```
 
 
 
 #### 6.3 - Notification
 
-
-
-<pre>{
+```json
+{
    "eventDate":"date",
    "sellerId":"number",
    "orderUri":"string",
    "order":"order"
-}</pre>
+}
+```
 
 
 #### 6.4 - Acceptance
 
-
-<pre> {
+```json
+{
     "eventDate":"date",
     "accepted" : "boolean",
     "sellerOrder" : "string",
     "message" : "string"
-}</pre>
+}
+```
 
  |
 
 #### 6.5 - Tracking
 
 
-<pre> [
+```json
+[
    {
       "item":{
          "sku":"string",
@@ -449,7 +458,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
          "controlPoint":"string"
       }
    }
-]</pre>
+]
+```
 
 
 ### 7 - Tecnologias e Padrões
