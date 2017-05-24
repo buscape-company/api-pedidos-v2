@@ -6,7 +6,7 @@ Buscapé Marketplace
 
 Principais interações que podem ser realizadas entre parceiros (consumidores) e a API Pedidos Buscapé.
 
-![Fluxo de interações](/api-pedidos-v2/images/Fluxo_Buscape_Marketplace.png)
+![Fluxo de interações](/images/Fluxo_Buscape_Marketplace.png)
 
 Obs.: Os e-mails transacionais que reportam o status do pedido para os clientes devem ser desabilitados. Esse tipo de e-mail já é enviado pelo Buscapé Marketplace.
 
