@@ -547,3 +547,49 @@ Atualmente a API Marketplace só aceita o content-type application/json. | Erro 
 (Unprocessable Entity) | Significa que o servidor entende o tipo de conteúdo enviado (sintaxe da entidade está correta), mas não foi capaz de processar as instruções contidas (ex: validações de negócio). | Erro do Consumidor | Todos |
 | 500
 (Internal Server Error) | É usado quando o processamento falhar devido a circunstâncias imprevistas no lado do servidor. | Erro da API | Todos |
+
+#### 7.4 – Retorno de erro
+
+```json
+{
+  "code": "number",
+  "error": "string",
+  "details": []
+}
+```
+| **Atributo** | **Descrição** |
+| ------------ | ------------- |
+| code | Código HTTP |
+| error | Descrição do erro |
+| details | Lista de detalhes do erro |
+
+Possíveis mensagens que podem retornar em **error**:
+* Serviço não disponível: {0}
+* Recurso não disponível
+* Erro de validação
+* Requisição inválida
+* Parâmetros inválidos na requisição
+* O campo {0} precisa ser um(a) {1} válido(a). O valor recebido {2} é inválido
+* Requisição não suportada: {0}
+* Erro interno
+
+Possíveis mensagens que podem retornar em **details**:
+* O order tracking é obrigatório* 
+* A lista de itens alterados pela* operação de tracking é obrigatória
+* A SKU do Buscapé é obrigatória
+* A SKU do parceiro é obrigatória
+* A quantidade de itens é obrigatória
+* As informações sobre o tracking são obrigatórias
+* O status do pedido é obrigatório
+* O status do pedido informado não é permitido
+* A descrição adicional sobre o tracking é obrigatória
+* A data da ocorrência é obrigatória
+* As informações sobre a nota fiscal da compra são obrigatórias
+* O número da nota fiscal é obrigatório
+* O valor da nota fiscal da compra é obrigatório
+* A url para consulta da DANFE é obrigatória
+* A data de emissão da nota fiscal é obrigatória
+* O número da chave de acesso à nota fiscal é obrigatória
+* O ID do objeto na transportadora ou as informações sobre a transportadora são obrigatórias
+* O nome da transportadora é obrigatório
+* O CNPJ da transportadora é obrigatório
