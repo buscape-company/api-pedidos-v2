@@ -64,7 +64,7 @@ A requisição que o parceiro irá receber por método POST terá o seguinte for
 
 - HTTP Method: POST
 
-- JSON Request: [Stock](#IntegraçãoPedidos-V2-StockRequest)
+- JSON Request: [Stock](#621---stock-request)
 
 #### 3.2 - Resposta REST:
 
@@ -72,7 +72,7 @@ A requisição que o parceiro irá enviar por método POST terá o seguinte form
 
 - HTTP Method: POST
 
-- JSON Request: [Stock](#IntegraçãoPedidos-V2-StockResponse)
+- JSON Request: [Stock](#621---stock-response)
 
 ### 4 - Notificação de pedido
 
@@ -82,7 +82,7 @@ Para integrar seu sistema e aproveitar ao máximo os recursos de notificações,
 
 - HTTP Method: POST
 
-- JSON Request: [Notification](#IntegraçãoPedidos-V2-Notification)
+- JSON Request: [Notification](#63---notification)
 
 #### 4.1 - URL de Callback
 
@@ -96,7 +96,7 @@ Ao receber um pedido novo o parceiro deverá enviar uma notificação de Aceite 
 
 - HTTP Method: POST
 
-- JSON Request: [Acceptance](#IntegraçãoPedidos-V2-Acceptance)
+- JSON Request: [Acceptance](#64---acceptance)
 
 #### 4.3 - Situações de Exceção
 
@@ -110,9 +110,9 @@ O Buscapé Marketplace disponibiliza o serviço para registrar uma nova operaç�
 
 - HTTP Request Method: POST
 
-- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2](http://api.buscape.com.br/orders/v2) /{ID_Buscape}/tracking
+- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2/{ID_Buscape}/tracking](http://api.buscape.com.br/orders/v2)
 
-- JSON Request: [Tracking](#IntegraçãoPedidos-V2-Tracking)
+- JSON Request: [Tracking](#65---tracking)
 
 #### 5.1 - Status do tracking
 
@@ -379,15 +379,15 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 
 ```json
-{
-   [
-      "buscapeID" : "number", 
-      "skuSellerId" : "number",
-      "available" : "number",
-      "crossDockingTime":"number",    
-      "message" : "string"
-   ]
-}
+[  
+   {  
+      "buscapeID":"number",
+      "skuSellerId":"number",
+      "available":"number",
+      "crossDockingTime":"number",
+      "message":"string"
+   }
+]
 ```
 
 
