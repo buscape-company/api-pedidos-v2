@@ -518,35 +518,20 @@ A API Marketplace suporta os seguintes códigos de status HTTP:
 
 | Código | Descrição | Tipo | Métodos HTTP permitidos |
 | --- | --- | --- | --- |
-| 200
-(OK) | Requisição foi efetuada com sucesso. | Sucesso | Todos |
-| 201
-(Created) | Requisição efetuada com sucesso e indicando que um novo recurso foi criado e retornando o que foi criado e sua localização. | Sucesso | POST |
-| 202
-(Accepted) | Requisição de criação de recurso foi aceita com sucesso e retornando o recurso de controle de status do recurso a ser criado. | Sucesso | POST |
-| 204
-(No Content) | Requisição efetuada com sucesso sem mensagem de resposta. | Sucesso | PUT |
-| 301
-(Moved Permanently) | Indica que um recurso mudou seu identificador/localização. Deve ser feito um redirect para onde está a nova localização desse recurso. | Redirecionamento | Todos |
-| 400
-(Bad Request) | A solicitação não pôde ser entendida pelo servidor devido à sintaxe mal formada, (validação do request de acordo com o esperado). | Erro do Consumidor | POST, PUT |
-| 401
-(Unauthorized) | Usado especificamente quando uma tentativa de autenticação tentou ter sido efetuada, mas foi invalidada. | Erro do Consumidor | POST, PUT |
-| 403
-(Forbidden) | Algum recurso tentou ser acessado, mas é protegido e necessita de uma autenticação prévia. Usado também quando um recurso está indisponível. | Erro do Consumidor | Todos |
-| 404
-(Not Found) | O servidor não encontrou nenhum recurso na URI acessada pelo consumidor. | Erro do Consumidor | Todos |
-| 405
-(Method Not Allowed) | Deve ser utilizado caso a operação a ser realizada não seja suportada pelo recurso. | Erro do Consumidor | Todos |
-| 409
-(Conflict) | A requisição não pôde ser concluída devido a um conflito com o estado atual do recurso. Este código só é permitido em situações onde se espera que o consumidor possa ser capaz de resolver o conflito e reenviar o pedido (ex: submit duplo). | Erro do Consumidor | PUT |
-| 415
-(Unsupported Media Type) | O consumidor enviou um content-type diferente do que a API opera. 
-Atualmente a API Marketplace só aceita o content-type application/json. | Erro do Consumidor | POST, PUT |
-| 422
-(Unprocessable Entity) | Significa que o servidor entende o tipo de conteúdo enviado (sintaxe da entidade está correta), mas não foi capaz de processar as instruções contidas (ex: validações de negócio). | Erro do Consumidor | Todos |
-| 500
-(Internal Server Error) | É usado quando o processamento falhar devido a circunstâncias imprevistas no lado do servidor. | Erro da API | Todos |
+| 200 (OK) | Requisição foi efetuada com sucesso. | Sucesso | Todos |
+| 201 (Created) | Requisição efetuada com sucesso e indicando que um novo recurso foi criado e retornando o que foi criado e sua localização. | Sucesso | POST |
+| 202 (Accepted) | Requisição de criação de recurso foi aceita com sucesso e retornando o recurso de controle de status do recurso a ser criado. | Sucesso | POST |
+| 204 (No Content) | Requisição efetuada com sucesso sem mensagem de resposta. | Sucesso | PUT |
+| 301 (Moved Permanently) | Indica que um recurso mudou seu identificador/localização. Deve ser feito um redirect para onde está a nova localização desse recurso. | Redirecionamento | Todos |
+| 400 (Bad Request) | A solicitação não pôde ser entendida pelo servidor devido à sintaxe mal formada, (validação do request de acordo com o esperado). | Erro do Consumidor | POST, PUT |
+| 401 (Unauthorized) | Usado especificamente quando uma tentativa de autenticação tentou ter sido efetuada, mas foi invalidada. | Erro do Consumidor | POST, PUT |
+| 403 (Forbidden) | Algum recurso tentou ser acessado, mas é protegido e necessita de uma autenticação prévia. Usado também quando um recurso está indisponível. | Erro do Consumidor | Todos |
+| 404 (Not Found) | O servidor não encontrou nenhum recurso na URI acessada pelo consumidor. | Erro do Consumidor | Todos |
+| 405 (Method Not Allowed) | Deve ser utilizado caso a operação a ser realizada não seja suportada pelo recurso. | Erro do Consumidor | Todos |
+| 409 (Conflict) | A requisição não pôde ser concluída devido a um conflito com o estado atual do recurso. Este código só é permitido em situações onde se espera que o consumidor possa ser capaz de resolver o conflito e reenviar o pedido (ex: submit duplo). | Erro do Consumidor | PUT |
+| 415 (Unsupported Media Type) | O consumidor enviou um content-type diferente do que a API opera. Atualmente a API Marketplace só aceita o content-type application/json. | Erro do Consumidor | POST, PUT |
+| 422 (Unprocessable Entity) | Significa que o servidor entende o tipo de conteúdo enviado (sintaxe da entidade está correta), mas não foi capaz de processar as instruções contidas (ex: validações de negócio). | Erro do Consumidor | Todos |
+| 500 (Internal Server Error) | É usado quando o processamento falhar devido a circunstâncias imprevistas no lado do servidor. | Erro da API | Todos |
 
 #### 7.4 – Retorno de erro
 
