@@ -36,7 +36,7 @@ O Buscapé Marketplace disponibiliza o serviço para recuperar uma lista de pedi
 
 - HTTP Request Method: GET
 
-- HTTP Request URL: <a>http://api.buscape.com.br/orders/status/{STATUS}?limit={NUMBER}&offset={NUMBER</a>}&lastUpdate={DATE}
+- HTTP Request URL: [http://api.buscape.com.br/orders/v2/status/{STATUS}?limit={NUMBER}&offset={NUMBER}&lastUpdate={DATE}](http://api.buscape.com.br/orders/v2/status)
 
 - Body Response: Array [Orders](#IntegraçãoPedidos-V2-Orders)
 
@@ -46,7 +46,7 @@ O Buscapé Marketplace disponibiliza o serviço para recuperar detalhes do pedid
 
 - HTTP Request Method: GET
 
-- HTTP Request URL Pattern: [http://api.buscape.com.br/orders](http://api.buscape.com.br/orders) /{ID_Buscape}
+- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2](http://api.buscape.com.br/orders/v2)/{ID_Buscape}
 
 - Body Response: [Orders](#IntegraçãoPedidos-V2-Orders)
 
@@ -110,7 +110,7 @@ O Buscapé Marketplace disponibiliza o serviço para registrar uma nova operaç�
 
 - HTTP Request Method: POST
 
-- HTTP Request URL Pattern: [http://api.buscape.com.br/orders](http://api.buscape.com.br/orders) /{ID_Buscape}/tracking
+- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2](http://api.buscape.com.br/orders/v2) /{ID_Buscape}/tracking
 
 - JSON Request: [Tracking](#IntegraçãoPedidos-V2-Tracking)
 
@@ -415,7 +415,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 }
 ```
 
- |
+ 
 
 #### 6.5 - Tracking
 
@@ -506,7 +506,7 @@ O valor default é 50 e o valor máximo permitido também é 50\. Caso o consumi
 
 Exemplo de busca utilizando limit e offset:
 
-GET <a>http://api.buscape.com.br/orders/status/new</a>[?limit=25&offset=50](http://api-marketplace.bonmarketplace.com.br/product?limit=25&offset=50)
+GET <a>http://api.buscape.com.br/orders/v2/status/new</a>[?limit=25&offset=50](http://api-marketplace.bonmarketplace.com.br/product?limit=25&offset=50)
 
 No exemplo acima, a API Buscapé Marketplace irá retornar um total de 25 produtos, começando a partir do produto que está na posição de número 50, ou seja, irá recuperar todos os produtos no intervalo 50-75.
 
@@ -562,34 +562,3 @@ Atualmente a API Marketplace só aceita o content-type application/json. | Erro 
 | code | Código HTTP |
 | error | Descrição do erro |
 | details | Lista de detalhes do erro |
-
-Possíveis mensagens que podem retornar em **error**:
-* Serviço não disponível: {0}
-* Recurso não disponível
-* Erro de validação
-* Requisição inválida
-* Parâmetros inválidos na requisição
-* O campo {0} precisa ser um(a) {1} válido(a). O valor recebido {2} é inválido
-* Requisição não suportada: {0}
-* Erro interno
-
-Possíveis mensagens que podem retornar em **details**:
-* O order tracking é obrigatório* 
-* A lista de itens alterados pela* operação de tracking é obrigatória
-* A SKU do Buscapé é obrigatória
-* A SKU do parceiro é obrigatória
-* A quantidade de itens é obrigatória
-* As informações sobre o tracking são obrigatórias
-* O status do pedido é obrigatório
-* O status do pedido informado não é permitido
-* A descrição adicional sobre o tracking é obrigatória
-* A data da ocorrência é obrigatória
-* As informações sobre a nota fiscal da compra são obrigatórias
-* O número da nota fiscal é obrigatório
-* O valor da nota fiscal da compra é obrigatório
-* A url para consulta da DANFE é obrigatória
-* A data de emissão da nota fiscal é obrigatória
-* O número da chave de acesso à nota fiscal é obrigatória
-* O ID do objeto na transportadora ou as informações sobre a transportadora são obrigatórias
-* O nome da transportadora é obrigatório
-* O CNPJ da transportadora é obrigatório
