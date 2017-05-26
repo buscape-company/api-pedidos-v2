@@ -36,7 +36,7 @@ O Buscapé Marketplace disponibiliza o serviço para recuperar uma lista de pedi
 
 - HTTP Request Method: GET
 
-- HTTP Request URL: <a>http://api.buscape.com.br/orders/status/{STATUS}?limit={NUMBER}&offset={NUMBER</a>}&lastUpdate={DATE}
+- HTTP Request URL: [http://api.buscape.com.br/orders/v2/status/{STATUS}?limit={NUMBER}&offset={NUMBER}&lastUpdate={DATE}](http://api.buscape.com.br/orders/v2/status)
 
 - Body Response: Array [Orders](#IntegraçãoPedidos-V2-Orders)
 
@@ -46,7 +46,7 @@ O Buscapé Marketplace disponibiliza o serviço para recuperar detalhes do pedid
 
 - HTTP Request Method: GET
 
-- HTTP Request URL Pattern: [http://api.buscape.com.br/orders](http://api.buscape.com.br/orders) /{ID_Buscape}
+- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2](http://api.buscape.com.br/orders/v2)/{ID_Buscape}
 
 - Body Response: [Orders](#IntegraçãoPedidos-V2-Orders)
 
@@ -64,7 +64,7 @@ A requisição que o parceiro irá receber por método POST terá o seguinte for
 
 - HTTP Method: POST
 
-- JSON Request: [Stock](#IntegraçãoPedidos-V2-StockRequest)
+- JSON Request: [Stock](#621---stock-request)
 
 #### 3.2 - Resposta REST:
 
@@ -72,7 +72,7 @@ A requisição que o parceiro irá enviar por método POST terá o seguinte form
 
 - HTTP Method: POST
 
-- JSON Request: [Stock](#IntegraçãoPedidos-V2-StockResponse)
+- JSON Request: [Stock](#621---stock-response)
 
 ### 4 - Notificação de pedido
 
@@ -82,7 +82,7 @@ Para integrar seu sistema e aproveitar ao máximo os recursos de notificações,
 
 - HTTP Method: POST
 
-- JSON Request: [Notification](#IntegraçãoPedidos-V2-Notification)
+- JSON Request: [Notification](#63---notification)
 
 #### 4.1 - URL de Callback
 
@@ -96,7 +96,7 @@ Ao receber um pedido novo o parceiro deverá enviar uma notificação de Aceite 
 
 - HTTP Method: POST
 
-- JSON Request: [Acceptance](#IntegraçãoPedidos-V2-Acceptance)
+- JSON Request: [Acceptance](#64---acceptance)
 
 #### 4.3 - Situações de Exceção
 
@@ -110,9 +110,9 @@ O Buscapé Marketplace disponibiliza o serviço para registrar uma nova operaç�
 
 - HTTP Request Method: POST
 
-- HTTP Request URL Pattern: [http://api.buscape.com.br/orders](http://api.buscape.com.br/orders) /{ID_Buscape}/tracking
+- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2/{ID_Buscape}/tracking](http://api.buscape.com.br/orders/v2)
 
-- JSON Request: [Tracking](#IntegraçãoPedidos-V2-Tracking)
+- JSON Request: [Tracking](#65---tracking)
 
 #### 5.1 - Status do tracking
 
@@ -167,8 +167,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 #### 6.1 - Orders 
 
-
-<pre>{
+```json
+{
    "orderID":"string",
    "orderStatus":"string",
    "orderedItems":[
@@ -271,7 +271,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
          ]
       }
    ]
-}</pre>
+}
+```
 
 
 | **Atributo** | **Descrição** |
@@ -360,59 +361,67 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 ##### 6.2.1 - Stock Request
 
-
-<pre>{
+```json
+{
     "buscapeID" : "string",
-    "orderedItems": [{
+    "orderedItems": [
+      {
         "skuSellerId" : "string",
         "quantity" : "number",
         "postalCode" : "string"
-    }]
-}</pre>
+      }
+    ]
+}
+```
 
 
 ##### 6.2.1 - Stock Response
 
 
-
-<pre>{[
-    "buscapeID" : "number", 
-    "skuSellerId" : "number",
-    "available" : "number",
-    "crossDockingTime":"number",    
-    "message" : "string"
-]}</pre>
+```json
+[  
+   {  
+      "buscapeID":"number",
+      "skuSellerId":"number",
+      "available":"number",
+      "crossDockingTime":"number",
+      "message":"string"
+   }
+]
+```
 
 
 
 #### 6.3 - Notification
 
-
-
-<pre>{
+```json
+{
    "eventDate":"date",
    "sellerId":"number",
    "orderUri":"string",
    "order":"order"
-}</pre>
+}
+```
 
 
 #### 6.4 - Acceptance
 
-
-<pre> {
+```json
+{
     "eventDate":"date",
     "accepted" : "boolean",
     "sellerOrder" : "string",
     "message" : "string"
-}</pre>
+}
+```
 
- |
+ 
 
 #### 6.5 - Tracking
 
 
-<pre> [
+```json
+[
    {
       "item":{
          "sku":"string",
@@ -449,7 +458,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
          "controlPoint":"string"
       }
    }
-]</pre>
+]
+```
 
 
 ### 7 - Tecnologias e Padrões
@@ -496,7 +506,7 @@ O valor default é 50 e o valor máximo permitido também é 50\. Caso o consumi
 
 Exemplo de busca utilizando limit e offset:
 
-GET <a>http://api.buscape.com.br/orders/status/new</a>[?limit=25&offset=50](http://api-marketplace.bonmarketplace.com.br/product?limit=25&offset=50)
+GET <a>http://api.buscape.com.br/orders/v2/status/new</a>[?limit=25&offset=50](http://api-marketplace.bonmarketplace.com.br/product?limit=25&offset=50)
 
 No exemplo acima, a API Buscapé Marketplace irá retornar um total de 25 produtos, começando a partir do produto que está na posição de número 50, ou seja, irá recuperar todos os produtos no intervalo 50-75.
 
@@ -508,32 +518,32 @@ A API Marketplace suporta os seguintes códigos de status HTTP:
 
 | Código | Descrição | Tipo | Métodos HTTP permitidos |
 | --- | --- | --- | --- |
-| 200
-(OK) | Requisição foi efetuada com sucesso. | Sucesso | Todos |
-| 201
-(Created) | Requisição efetuada com sucesso e indicando que um novo recurso foi criado e retornando o que foi criado e sua localização. | Sucesso | POST |
-| 202
-(Accepted) | Requisição de criação de recurso foi aceita com sucesso e retornando o recurso de controle de status do recurso a ser criado. | Sucesso | POST |
-| 204
-(No Content) | Requisição efetuada com sucesso sem mensagem de resposta. | Sucesso | PUT |
-| 301
-(Moved Permanently) | Indica que um recurso mudou seu identificador/localização. Deve ser feito um redirect para onde está a nova localização desse recurso. | Redirecionamento | Todos |
-| 400
-(Bad Request) | A solicitação não pôde ser entendida pelo servidor devido à sintaxe mal formada, (validação do request de acordo com o esperado). | Erro do Consumidor | POST, PUT |
-| 401
-(Unauthorized) | Usado especificamente quando uma tentativa de autenticação tentou ter sido efetuada, mas foi invalidada. | Erro do Consumidor | POST, PUT |
-| 403
-(Forbidden) | Algum recurso tentou ser acessado, mas é protegido e necessita de uma autenticação prévia. Usado também quando um recurso está indisponível. | Erro do Consumidor | Todos |
-| 404
-(Not Found) | O servidor não encontrou nenhum recurso na URI acessada pelo consumidor. | Erro do Consumidor | Todos |
-| 405
-(Method Not Allowed) | Deve ser utilizado caso a operação a ser realizada não seja suportada pelo recurso. | Erro do Consumidor | Todos |
-| 409
-(Conflict) | A requisição não pôde ser concluída devido a um conflito com o estado atual do recurso. Este código só é permitido em situações onde se espera que o consumidor possa ser capaz de resolver o conflito e reenviar o pedido (ex: submit duplo). | Erro do Consumidor | PUT |
-| 415
-(Unsupported Media Type) | O consumidor enviou um content-type diferente do que a API opera. 
-Atualmente a API Marketplace só aceita o content-type application/json. | Erro do Consumidor | POST, PUT |
-| 422
-(Unprocessable Entity) | Significa que o servidor entende o tipo de conteúdo enviado (sintaxe da entidade está correta), mas não foi capaz de processar as instruções contidas (ex: validações de negócio). | Erro do Consumidor | Todos |
-| 500
-(Internal Server Error) | É usado quando o processamento falhar devido a circunstâncias imprevistas no lado do servidor. | Erro da API | Todos |
+| 200 (OK) | Requisição foi efetuada com sucesso. | Sucesso | Todos |
+| 201 (Created) | Requisição efetuada com sucesso e indicando que um novo recurso foi criado e retornando o que foi criado e sua localização. | Sucesso | POST |
+| 202 (Accepted) | Requisição de criação de recurso foi aceita com sucesso e retornando o recurso de controle de status do recurso a ser criado. | Sucesso | POST |
+| 204 (No Content) | Requisição efetuada com sucesso sem mensagem de resposta. | Sucesso | PUT |
+| 301 (Moved Permanently) | Indica que um recurso mudou seu identificador/localização. Deve ser feito um redirect para onde está a nova localização desse recurso. | Redirecionamento | Todos |
+| 400 (Bad Request) | A solicitação não pôde ser entendida pelo servidor devido à sintaxe mal formada, (validação do request de acordo com o esperado). | Erro do Consumidor | POST, PUT |
+| 401 (Unauthorized) | Usado especificamente quando uma tentativa de autenticação tentou ter sido efetuada, mas foi invalidada. | Erro do Consumidor | POST, PUT |
+| 403 (Forbidden) | Algum recurso tentou ser acessado, mas é protegido e necessita de uma autenticação prévia. Usado também quando um recurso está indisponível. | Erro do Consumidor | Todos |
+| 404 (Not Found) | O servidor não encontrou nenhum recurso na URI acessada pelo consumidor. | Erro do Consumidor | Todos |
+| 405 (Method Not Allowed) | Deve ser utilizado caso a operação a ser realizada não seja suportada pelo recurso. | Erro do Consumidor | Todos |
+| 409 (Conflict) | A requisição não pôde ser concluída devido a um conflito com o estado atual do recurso. Este código só é permitido em situações onde se espera que o consumidor possa ser capaz de resolver o conflito e reenviar o pedido (ex: submit duplo). | Erro do Consumidor | PUT |
+| 415 (Unsupported Media Type) | O consumidor enviou um content-type diferente do que a API opera. Atualmente a API Marketplace só aceita o content-type application/json. | Erro do Consumidor | POST, PUT |
+| 422 (Unprocessable Entity) | Significa que o servidor entende o tipo de conteúdo enviado (sintaxe da entidade está correta), mas não foi capaz de processar as instruções contidas (ex: validações de negócio). | Erro do Consumidor | Todos |
+| 500 (Internal Server Error) | É usado quando o processamento falhar devido a circunstâncias imprevistas no lado do servidor. | Erro da API | Todos |
+
+#### 7.4 – Retorno de erro
+
+```json
+{
+  "code": "number",
+  "error": "string",
+  "details": []
+}
+```
+| **Atributo** | **Descrição** |
+| ------------ | ------------- |
+| code | Código HTTP |
+| error | Descrição do erro |
+| details | Lista de detalhes do erro |
