@@ -229,7 +229,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
                   "skuSellerId":"string"
                },
                "selectedSla":"string",
-               "lockTTL":"number",
+               "lockTTL":"string",
                "otd":{
                   "shippingEstimate":"number",
                   "transitTime":"number",
@@ -428,7 +428,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
          "skuSellerId":"string"
       },
       "selectedSla":"string",
-      "lockTTL":"number",
+      "lockTTL":"string",
       "otd":{
          "shippingEstimate":"number",
          "transitTime":"number",
