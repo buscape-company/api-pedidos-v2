@@ -134,6 +134,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | item | Item alterado pela operação de tracking |
 | item.sku | SKU do Buscapé |
 | item.skuSellerId | SKU do parceiro |
+| item.quantity | Quantidade do item |
 | tracking | Informações de sobre o Tracking |
 | tracking.controlPoint | Status do pedido |
 | tracking.description | Descrição adicional sobre tracking |
@@ -185,14 +186,14 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
          "method":"string",
          "amount":"number",
          "installments":"number",
-         "paymentDueAt":"date",
-         "approvedAt":"date"
+         "paymentDueAt":"datetime",
+         "approvedAt":"datetime"
       }
    ],
    "sellerOrder":"string",
    "totalFreight":"number",
-   "purchaseAt":"date",
-   "lastUpdateAt":"date",
+   "purchaseAt":"datetime",
+   "lastUpdateAt":"datetime",
    "clientProfileData":{
       "email":"string",
       "firstName":"string",
@@ -229,12 +230,12 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
                   "skuSellerId":"string"
                },
                "selectedSla":"string",
-               "lockTTL":"number",
+               "lockTTL":"string",
                "otd":{
                   "shippingEstimate":"number",
                   "transitTime":"number",
                   "crossDockingTime":"number",
-                  "scheduledAt":"date",
+                  "scheduledAt":"datetime",
                   "scheduledPeriod":"string"
                },
                "trackingNumber":"string",
@@ -248,14 +249,14 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
                },
                "tracking":{
                   "description":"string",
-                  "occurredAt":"date",
+                  "occurredAt":"datetime",
                   "controlPoint":"string"
                },
                "invoice" : {
                   "number": "number",
                   "value": "number",
                   "url": "string",
-                  "issuanceDate": "date",
+                  "issuanceDate": "datetime",
                   "invoiceKey": "string"
                },
                "giftWrap":{
@@ -396,7 +397,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 ```json
 {
-   "eventDate":"date",
+   "eventDate":"datetime",
    "sellerId":"number",
    "orderUri":"string",
    "order":"order"
@@ -408,7 +409,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 
 ```json
 {
-    "eventDate":"date",
+    "eventDate":"datetime",
     "accepted" : "boolean",
     "sellerOrder" : "string",
     "message" : "string"
@@ -428,7 +429,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
          "skuSellerId":"string"
       },
       "selectedSla":"string",
-      "lockTTL":"number",
+      "lockTTL":"string",
       "otd":{
          "shippingEstimate":"number",
          "transitTime":"number",
@@ -449,7 +450,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
          "number":"number",
          "value":"number",
          "url":"string",
-         "issuanceDate":"date",
+         "issuanceDate":"datetime",
          "invoiceKey":"string"
       },
       "tracking":{
@@ -470,8 +471,15 @@ Para facilitar o consumo dos serviços pelos parceiros Marketplace, padrões for
 - Protocolo: HTTP 1.1
 - Charset: UTF-8
 - Content-type: JSON**
-- Formatação de data: YYYY-MM-DD
-- Formatação de data/hora: YYYY-MM-DDThh:mm:ss.sTZD[ ( Exemplo: 2013-06-28T08:54:00.000-03:00 )](http://mmss.stzd/)
+- Formatação de data/hora: yyyy-MM-ddThh:mm:ss.sssTZD[ ( Exemplo: 2013-06-28T08:54:00.000Z )](http://mmss.stzd/)
+     * YYYY = quatro dígitos - ano
+     * MM   = dois dígitos - mês (01=Janeiro, etc.)
+     * DD   = dois dígitos - dia do mês
+     * hh   = dois dígitos horas (00 até 23)
+     * mm   = dois dígitos - minutos (00 até 59)
+     * ss   = dois dígitos - segundos (00 até 59)
+     * sss  = 3 dígitos - decimais de segundo
+     * TZD  = timezone (Z or +hh:mm ou -hh:mm)
 
 * REST é um modelo arquitetural que foca na simplicidade e que não estipula um formato rígido, proporcionando flexibilidade no desenvolvimento e uso dos serviços.
 
