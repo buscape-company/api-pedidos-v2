@@ -132,7 +132,6 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | **Atributo** | **Descrição** |
 | ------------ | --------------|
 | item | Item alterado pela operação de tracking |
-| item.sku | SKU do Buscapé |
 | item.skuSellerId | SKU do parceiro |
 | item.quantity | Quantidade do item |
 | tracking | Informações de sobre o Tracking |
@@ -152,7 +151,6 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | **Atributo** | **Descrição** |
 | ------------ | ------------- |
 | item | Item alterado pela operação de tracking |
-| item.sku | SKU do Buscapé |
 | item.skuSellerId | SKU do parceiro |
 | trackingNumber | ID do objeto na transportadora |
 | carrier | Informações sobre transportadora |
