@@ -96,6 +96,8 @@ Ao receber um pedido novo o parceiro deverá enviar uma notificação de Aceite 
 
 - HTTP Method: POST
 
+- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2/{ID_Buscape}/acceptance](http://api.buscape.com.br/orders/v2/{ID_Buscape}/acceptance)
+
 - JSON Request: [Acceptance](#64---acceptance)
 
 #### 4.3 - Situações de Exceção
