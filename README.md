@@ -56,7 +56,22 @@ O Buscapé Marketplace realiza a consulta de estoque, que consiste em perguntar 
 
 Caso o parceiro confirme a disponibilidade de estoque, o Buscapé irá reduzir internamente o estoque dos itens associados ao pedido, conforme a quantidade de cada item, e o pedido continuará o fluxo normal; caso contrário o pedido será cancelado. Para isto o parceiro deverá implementar um serviço de resposta para a consulta de estoque.
 
-Para isto o parceiro deve implementar um Webservice REST que use formato JSON. Este serviço será responsável por receber as requisições de consulta de estoque vindos do Buscapé, e o parceiro deverá responder se tem estoque ou não para os itens do pedido. Caso o parceiro confirme a disponibilidade de estoque, o Buscapé irá reduzir internamente o estoque dos itens associados ao pedido, conforme a quantidade de cada item.
+Para isto o parceiro deve implementar um Webservice REST que use formato JSON. Este serviço será responsável por receber as requisições de consulta de estoque vindos do Buscapé, e o parceiro deverá responder se tem estoque ou não para os itens do pedido. Caso o parceiro confirme a disponibilidade de estoque, o Buscapé irá reduzir internamente o estoque s itens associados ao pedido, conforme a quantidade de cada item.
+
+O comportamento esperado na consulta de estoque será o sistema ira consultar a loja com quantos itens foram adicionados ao carrinho e a loja deve retornar a quantidade de itens disponiveis subtraindo a quantidade consultada, por exemplo:
+
+Exemplo A:
+
+Temos o produto A com 500 unidades disponiveis
+O sistema faz a requisição para saber a disponibilidade de 7 itens...
+O seu retorno precisa ser de 493 itens disponiveis...
+
+
+Exemplo B:
+
+Temos o produto N com 3 unidades disponiveis
+O sistema faz a requisição para saber a disponibilidade de 7 itens...
+O seu retorno precisa ser de -4 itens disponiveis...
 
 #### 3.1 - Requisição REST:
 
@@ -76,7 +91,7 @@ A requisição que o parceiro irá enviar por método POST terá o seguinte form
 
 ### 4 - Notificação de pedido
 
-O Buscapé Marketplace disponibiliza a funcionalidade de Notificação de Eventos: sempre que um Evento ocorrer (por exemplo um novo pedido), iremos notificar a sua Aplicação
+O Buscapé Marketplace disponibiliza a funcionalidade de Notificação de Eventos: quando um determinado Evento ocorrer (por exemplo um pedido com pagamento aprovado), iremos notificar a sua Aplicação
 
 Para integrar seu sistema e aproveitar ao máximo os recursos de notificações, é necessário que sua aplicação esteja preparada para receber um POST de um JSON no formato:
 
@@ -95,6 +110,8 @@ Ao receber um pedido novo o parceiro deverá enviar uma notificação de Aceite 
 É necessário que sua aplicação esteja preparada para enviar um POST de um JSON no formato:
 
 - HTTP Method: POST
+
+- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2/{ID_Buscape}/acceptance](http://api.buscape.com.br/orders/v2)
 
 - JSON Request: [Acceptance](#64---acceptance)
 
@@ -144,6 +161,28 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | invoice.url | Url para consulta da DANFE |
 | invoice.issuanceDate | Data de emissão da Nota Fiscal |
 | invoice.invoiceKey | Número da chave de acesso à nota fiscal.  |
+```json
+[
+  {
+    "item": {
+      "skuSellerId": "string",
+      "quantity": "number"
+    },
+    "tracking": {
+      "controlPoint": "string",
+      "description": "string",
+      "occurredAt": "datetime"
+    },
+    "invoice": {
+      "number": "number",
+      "value": "number",
+      "url": "number",
+      "issuanceDate": "datetime",
+      "invoiceKey": "number"
+    }
+  }
+]
+```
 
 *   Status **in_hosting**: 
     Nesse status pode enviar <span>**trackingNumber** e/ou **carrier**, além dos demais atributos.</span>
@@ -161,6 +200,26 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | tracking.description | Descrição adicional sobre tracking |
 | tracking.occurredAt | Data da ocorrência |
 
+```json
+[
+  {
+    "item": {
+      "skuSellerId": "string",
+    }
+    "trackingNumber": "string",
+    "carrier":{
+	"name":"string",
+	"cnpj":"string"
+    },
+    "tracking": {
+      "controlPoint": "string",
+      "description": "string",
+      "occurredAt": "datetime"
+      
+    }
+  }
+]
+```
 ### 
 6 - Mensagens das requisições
 
