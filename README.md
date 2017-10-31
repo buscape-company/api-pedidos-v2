@@ -14,21 +14,21 @@ Obs.: Os e-mails transacionais que reportam o status do pedido para os clientes 
 
 A consulta de pedido retorna o pedido no momento atual. O pedido pode está nos seguintes status:
 
-| Status de pedido | Descrição |
-| -----------------| ----------|
-| new | Pedido novo no Buscapé Marketplace |
-| accept | Pedido aceito pelo parceiro |
-| not_accept | Pedido recusado pelo parceiro |
-| pending | Aguardando meio de pagamento |
-| approved | Pagamento aprovado |
-| not_approved | Pagamento não aprovado |
-| cancelled | Pedido cancelado |
-| invoiced | Pedido Faturado |
-| in_hosting | Item na transportadora |
-| in_route | Item em rota de entrega |
-| retrying | Retentativas |
-| reversal | Devolução |
-| delivered | Pedido totalmente entregue |
+| Status de pedido | Descrição | Quem Envia |
+| -----------------| ----------| -----------|
+| new | Pedido novo no Buscapé Marketplace | Buscapé |
+| accept | Pedido aceito pelo parceiro | Seller |
+| not_accept | Pedido recusado pelo parceiro | Seller |
+| pending | Aguardando meio de pagamento | Buscapé |
+| approved | Pagamento aprovado | Buscapé |
+| not_approved | Pagamento não aprovado | Buscapé |
+| cancelled | Pedido cancelado | Buscapé |
+| invoiced | Pedido Faturado | Seller |
+| in_hosting | Item na transportadora | Seller |
+| in_route | Item em rota de entrega | Buscapé |
+| retrying | Retentativas | Buscapé |
+| reversal | Devolução | Buscapé |
+| delivered | Pedido totalmente entregue | Buscapé |
 
 #### 2.1 - Consulta pedido por Status
 
@@ -56,7 +56,10 @@ O Buscapé Marketplace realiza a consulta de estoque, que consiste em perguntar 
 
 Caso o parceiro confirme a disponibilidade de estoque, o Buscapé irá reduzir internamente o estoque dos itens associados ao pedido, conforme a quantidade de cada item, e o pedido continuará o fluxo normal; caso contrário o pedido será cancelado. Para isto o parceiro deverá implementar um serviço de resposta para a consulta de estoque.
 
-Para isto o parceiro deve implementar um Webservice REST que use formato JSON. Este serviço será responsável por receber as requisições de consulta de estoque vindos do Buscapé, e o parceiro deverá responder se tem estoque ou não para os itens do pedido. Caso o parceiro confirme a disponibilidade de estoque, o Buscapé irá reduzir internamente o estoque dos itens associados ao pedido, conforme a quantidade de cada item.
+Para isto o parceiro deve implementar um Webservice REST que use formato JSON. Este serviço será responsável por receber as requisições de consulta de estoque vindos do Buscapé, e o parceiro deverá responder se tem estoque ou não para os itens do pedido. Caso o parceiro confirme a disponibilidade de estoque, o Buscapé irá reduzir internamente o estoque s itens associados ao pedido, conforme a quantidade de cada item.
+
+*A quantidade a ser retornada será o total em estoque menos o total consultado, mesmo que a subtração seja menor que 0. Ex: 10(Estoque) – 12(Consulta) = -2
+
 
 #### 3.1 - Requisição REST:
 
@@ -76,13 +79,126 @@ A requisição que o parceiro irá enviar por método POST terá o seguinte form
 
 ### 4 - Notificação de pedido
 
-O Buscapé Marketplace disponibiliza a funcionalidade de Notificação de Eventos: sempre que um Evento ocorrer (por exemplo um novo pedido), iremos notificar a sua Aplicação
+O Buscapé Marketplace disponibiliza a funcionalidade de Notificação de Eventos: quando um determinado Evento ocorrer (por exemplo um pedido com pagamento aprovado), iremos notificar a sua Aplicação
 
 Para integrar seu sistema e aproveitar ao máximo os recursos de notificações, é necessário que sua aplicação esteja preparada para receber um POST de um JSON no formato:
 
 - HTTP Method: POST
 
 - JSON Request: [Notification](#63---notification)
+```json
+{
+   "eventDate":"YYYY-MM-DD",
+   "sellerId":"xxxxxxx",
+   "orderUri":"http:\/\/api.buscape.com.br\/orders\/152xxxxxxxx",
+   "order":{
+    "orderStatus": "approved",
+    "orderedItems": [
+        {
+            "sku": null,
+            "skuSellerId": "12345678",
+            "quantity": 1,
+            "price": 99.99,
+            "discount": 0
+        }
+    ],
+    "paymentMethods": [
+        {
+            "method": "CARTAO",
+            "amount": 99.99,
+            "installments": 0,
+            "paymentDueAt": "YYYY-MM-DDThh:mm:ss.000Z",
+            "approvedAt": null
+        }
+    ],
+    "sellerOrder": "152xxxxxxxx",
+    "totalFreight": 0,
+    "purchaseAt": "YYYY-MM-DDThh:mm:ss.000Z",
+    "lastUpdateAt": "YYYY-MM-DDThh:mm:ss.000Z",
+    "clientProfileData": {
+        "email": "teste@teste.com",
+        "firstName": "Primeiro Nome",
+        "lastName": "Ultimo Nome",
+        "documentType": "CPF",
+        "document": "12345678900",
+        "phone": "(11)22223344",
+        "corporate": {
+            "corporateName": null,
+            "tradeName": "",
+            "stateInscription": "",
+            "corporatePhone": null
+        }
+    },
+    "shippingInfo": [
+        {
+            "address": {
+                "addressType": "RESIDENCIAL OU COMERCIAL",
+                "receiverName": "Receptor da encomenda",
+                "postalCode": "cep",
+                "city": "cidade",
+                "state": "estatdo",
+                "country": "pais",
+                "street": "nome da rua",
+                "number": "numero",
+                "neighborhood": "bairro",
+                "complement": "complemento",
+                "reference": "referencia"
+            },
+            "deliveries": [
+                {
+                    "item": {
+                        "sku": "sku",
+                        "skuSellerId": "12345678",
+                        "quantity": null
+                    },
+                    "selectedSla": "",
+                    "otd": {
+                        "shippingEstimate": 5,
+                        "transitTime": 0,
+                        "crossDockingTime": 0,
+                        "scheduledAt": null,
+                        "scheduledPeriod": null
+                    },
+                    "trackingNumber": null,
+                    "sellerDeliveryId": "123456789",
+                    "freightPrice": 0,
+                    "freightCost": 0,
+                    "additionalInfo": "",
+                    "carrier": {
+                        "name": "Tipo de envio",
+                        "cnpj": ""
+                    },
+                    "invoice": {
+                        "number": 0,
+                        "value": 0,
+                        "url": "",
+                        "issuanceDate": null,
+                        "invoiceKey": null
+                    },
+                    "tracking": {
+                        "description": null,
+                        "occurredAt": null,
+                        "controlPoint": "accept"
+                    },
+                    "giftWrap": {
+                        "available": false,
+                        "value": 0,
+                        "giftCard": {
+                            "from": "",
+                            "to": "",
+                            "message": ""
+                        }
+                    },
+                    "lockTTL": "2d"
+                }
+            ]
+        }
+    ],
+    "orderID": "152xxxxxxxx"
+   }
+}
+```
+
 
 #### 4.1 - URL de Callback
 
@@ -90,13 +206,19 @@ Para integrar seu sistema e aproveitar ao máximo os recursos de notificações,
 
 #### 4.2 - Aceite
 
-Ao receber um pedido novo o parceiro deverá enviar uma notificação de Aceite para o Buscapé Marketplace.
+Ao receber um novo pedido, o parceiro deverá, antes de tudo, validá-lo. Estando ele de acordo ele envia uma notificação de Aceite para o Buscapé Marketplace.
 
 É necessário que sua aplicação esteja preparada para enviar um POST de um JSON no formato:
 
 - HTTP Method: POST
 
+- HTTP Request URL Pattern: [http://api.buscape.com.br/orders/v2/{ID_Buscape}/acceptance](http://api.buscape.com.br/orders/v2)
+
 - JSON Request: [Acceptance](#64---acceptance)
+
+Caso o Pedido contenha informações divergentes ao esperado, o seller deve enviar uma notificação de “Não Aceito” e especificar o motivo no campo “message”.
+
+Obs.: Quando o pedido não for aceito isto não significa que ele será cancelado. Nossa central de atendimento entrará em contato ou com o seller ou com o cliente para tratar dos novos termos para prosseguir ou não com a venda. 
 
 #### 4.3 - Situações de Exceção
 
@@ -144,6 +266,28 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | invoice.url | Url para consulta da DANFE |
 | invoice.issuanceDate | Data de emissão da Nota Fiscal |
 | invoice.invoiceKey | Número da chave de acesso à nota fiscal.  |
+```json
+[
+  {
+    "item": {
+      "skuSellerId": "string",
+      "quantity": "number"
+    },
+    "tracking": {
+      "controlPoint": "string",
+      "description": "string",
+      "occurredAt": "datetime"
+    },
+    "invoice": {
+      "number": "number",
+      "value": "number",
+      "url": "number",
+      "issuanceDate": "datetime",
+      "invoiceKey": "number"
+    }
+  }
+]
+```
 
 *   Status **in_hosting**: 
     Nesse status pode enviar <span>**trackingNumber** e/ou **carrier**, além dos demais atributos.</span>
@@ -161,6 +305,26 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | tracking.description | Descrição adicional sobre tracking |
 | tracking.occurredAt | Data da ocorrência |
 
+```json
+[
+  {
+    "item": {
+      "skuSellerId": "string"
+    },
+    "trackingNumber": "string",
+    "carrier":{
+	"name":"string",
+	"cnpj":"string"
+    },
+    "tracking": {
+      "controlPoint": "string",
+      "description": "string",
+      "occurredAt": "datetime"
+      
+    }
+  }
+]
+```
 ### 
 6 - Mensagens das requisições
 
