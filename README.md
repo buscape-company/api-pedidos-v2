@@ -717,3 +717,63 @@ A API Marketplace suporta os seguintes códigos de status HTTP:
 | code | Código HTTP |
 | error | Descrição do erro |
 | details | Lista de detalhes do erro |
+
+**Busca de pedidos por status ou id**
+
+| **Caso** | **Mensagem** | **Code** |
+|----------|--------------|----------|
+| Não seja informado o status | Parametro STATUS não informado. | 400 | 
+| Não seja informado o ID do pedido | ID do Pedido não informado. | 400 | 
+| Parametro sellerId não seja encontrado na base | Seller não encontrado. | 400 | 
+| Parametro sellerId seja diferente do cadastrado no pedido | Parametro Seller ID invalido. | 400 | 
+| Id do produto da busca não seja econtrado na base | Produto não encontrado. | 400 | 
+
+**Endpoint "Acceptance"**
+
+| **Caso** | **Mensagem** | **Code** |
+|----------|--------------|----------| 
+| Parametro "accepted" vazio | Parametros inválidos. | 400 | 
+| Campos 'id', 'eventDate', 'sellerOrderId', 'sellerId' vazio ou não enviado | Parametros inválidos. | 400 | 
+| Pedido não seja encontrado na base | Pedido inválido. | 400 | 
+| Parametro sellerId não seja encontrado na base | Seller não encontrado. | 400 | 
+| Parametro sellerId seja diferente do cadastrado no pedido | Parametro Seller ID invalido. | 400 | 
+| Exista os status no historico do pedido (seller_accepted, seller_waiting_payment) | Pedido ja aceito pelo Seller. | 200 | 
+| No aceite, não exista informação de integração com a MOIP | Pedido não integrado com MOIP | 400 | 
+| Haja algum erro interno de processamento | Erro interno durante alteração de status. | 500 | 
+| Aceite do pedido ocorra com sucesso | Pedido aceito com sucesso. | 200 | 
+| Recusa do pedido realizada com sucesso | Pedido recusado com sucesso. | 200 | 
+| Erro interno durante operação de recusa do pedido. |  | 200 | 
+
+**"Envio de Invoice e Tracking"**
+
+| **Caso** | **Mensagem** | **Code** |
+|----------|--------------|----------| 
+| ID do pedido não seja informado | Pedido não informado. | 400 | 
+| ID do pedido não seja encontrado | Pedido não encontrado. | 400 | 
+| SellerID não seja informado ou seja diferente do cadastrado no pedido | Parametros inválidos. | 400 |
+
+**Invoice**
+
+| **Caso** | **Mensagem** | **Code** |
+|----------|--------------|----------|
+| Parametros (number, value, issuanceDate, invoiceKey) estejam vazios | Dados da Nota Fiscal inválidos. | 400 | 
+| Parâmetro invoiceKey não for numérico e não houver 44 caracteres | Número da Nota Fiscal incorreto, utilize somente números e 44 caracteres. | 400 | 
+| Já exista nota fiscal cadastrada ao pedido | Nota já existente para esse pedido. | 400 | 
+| Não seja possível faturar pedido | Não é possível faturar pedido. | 400 | 
+| Número da invoiceKey seja inválido | Nota Fiscal inválida, solicitado correção. | 400 | 
+| Invoice Key esteja duplicada | A Nota Fiscal enviada já foi enviada para outro pedido, solicitado correção. | 400 | 
+| Aconteça algum erro na criação da invoice / registro dos valores | Erro interno ao gravar Nota Fiscal. | 500 | 
+
+**Tracking**
+
+| **Caso** | **Mensagem** | **Code** | 
+|----------|--------------|----------|
+| Não seja econtrado nota fiscal para o pedido | Erro em atualizar tracking - Pedido sem nota fiscal cadastrada. | 400 | 
+| Parametro tracking ou controlpoint esteja vazio | Parametros inválidos. | 400 | 
+| Transportadora seja correios e trackingNumber sejá inválido | Tracking do Correios enviado inválido. | 400 | 
+| Status do pedido não permita que seja cadastrado tracking para pedido  | Não é possível cadastrar tracking para este pedido. | 400 | 
+| CNPJ enviado para transportadora seja inválido | CNPJ da transportadora inválido. | 400 |
+| Seja cadastrado somente Invoice | Nota Fiscal cadastrada. | 200 | 
+| Seja cadastrado somente Tracking | Tracking cadastrado. | 200 | 
+| Seja cadastrado Invoice e Tracking | Nota Fiscal e Tracking cadastrados. | 200 | 
+| Seja não seja cadastrado invoice nem Tracking | Sem alterações no pedido. | 200 | 
