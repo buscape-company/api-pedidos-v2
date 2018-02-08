@@ -208,6 +208,8 @@ Para integrar seu sistema e aproveitar ao máximo os recursos de notificações,
 
 Ao receber um novo pedido, o parceiro deverá, antes de tudo, validá-lo. Estando ele de acordo ele envia uma notificação de Aceite para o Buscapé Marketplace.
 
+**A partir do momento que o parceiro recebe o pedido, ele deve reservar o estoque até o pedido ser de fato cancelado, mesmo que envie a recusa.**
+
 É necessário que sua aplicação esteja preparada para enviar um POST de um JSON no formato:
 
 - HTTP Method: POST
@@ -682,7 +684,7 @@ No exemplo acima, a API Buscapé Marketplace irá retornar um total de 25 produt
 
 #### 7.3 – Códigos de retorno (HTTP status code)
 
-Todos os serviços retornam códigos para indicar sucesso ou erro no processamento da solicitação. Além disso, os códigos servem para deixar claro ao consumidor da API qual foi o motivo do erro, caso tenha ocorrido.
+Todos os serviços retornam códigos para indicar sucesso ou erro no processamento da solicitação. Além disso, os códigos servem para deixar claro ao consumidor da API qual foi o motivo do erro, sendo retornado mensagens explicando exatamente quais informações estão sendo enviadas erradas e devem ser repassadas para o lojista, caso tenha ocorrido.
 
 A API Marketplace suporta os seguintes códigos de status HTTP:
 
