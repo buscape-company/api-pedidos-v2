@@ -107,6 +107,7 @@ Para integrar seu sistema e aproveitar ao máximo os recursos de notificações,
             "method": "CARTAO",
             "amount": 99.99,
             "installments": 0,
+	    "brand": "VISA",
             "paymentDueAt": "YYYY-MM-DDThh:mm:ss.000Z",
             "approvedAt": null
         }
@@ -122,6 +123,7 @@ Para integrar seu sistema e aproveitar ao máximo os recursos de notificações,
         "documentType": "CPF",
         "document": "12345678900",
         "phone": "(11)22223344",
+	"dob": "YYYY-MM-DDThh:mm:ss.000Z",
         "corporate": {
             "corporateName": null,
             "tradeName": "",
@@ -192,6 +194,29 @@ Para integrar seu sistema e aproveitar ao máximo os recursos de notificações,
                     "lockTTL": "2d"
                 }
             ]
+        }
+    ], 
+    "billingInfo": [
+        {
+            "address": {
+                "addressType": "RESIDENCIAL OU COMERCIAL",
+                "receiverName": "Recebedor da Cobrança",
+                "postalCode": "Cep",
+                "city": "cidade",
+                "state": "estado",
+                "country": "pais",
+                "street": "Rua",
+                "number": "123",
+                "neighborhood": "bairro",
+                "complement": "complemento",
+                "reference": "referencia"
+            }
+        }
+    ],
+     "history": [
+        {
+            "status": "approved",
+            "occurredDate": "YYYY-MM-DDThh:mm:ss.000Z"
         }
     ],
     "orderID": "152xxxxxxxx"
@@ -298,6 +323,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | ------------ | ------------- |
 | item | Item alterado pela operação de tracking |
 | item.skuSellerId | SKU do parceiro |
+| item.quantity | Quantidade do item |
 | trackingNumber | ID do objeto na transportadora |
 | carrier | Informações sobre transportadora |
 | carrier.name | Nome da transportadora |
@@ -311,7 +337,8 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 [
   {
     "item": {
-      "skuSellerId": "string"
+      "skuSellerId": "string",
+      "quantity": "number"
     },
     "trackingNumber": "string",
     "carrier":{
@@ -333,90 +360,92 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 #### 6.1 - Orders 
 
 ```json
-{
-   "orderID":"string",
-   "orderStatus":"string",
+ {
+   "orderID": "string",
+   "orderStatus": "string",
    "orderedItems":[
       {
-         "sku":"number",
-         "skuSellerId":"string",
-         "quantity":"number",
-         "price":"number",
-         "discount":"number"
+         "sku": "number",
+         "skuSellerId": "string",
+         "quantity": "number",
+         "price": "number",
+         "discount": "number"
       }
    ],
    "paymentMethods":[
       {
-         "method":"string",
-         "amount":"number",
-         "installments":"number",
-         "paymentDueAt":"datetime",
-         "approvedAt":"datetime"
+         "method": "string",
+         "amount": "number",
+         "installments": "number",
+         "paymentDueAt": "datetime",
+         "approvedAt": "datetime",
+         "brand" : "string"
       }
    ],
-   "sellerOrder":"string",
-   "totalFreight":"number",
-   "purchaseAt":"datetime",
-   "lastUpdateAt":"datetime",
+   "sellerOrder": "string",
+   "totalFreight": "number",
+   "purchaseAt": "datetime",
+   "lastUpdateAt": "datetime",
    "clientProfileData":{
-      "email":"string",
-      "firstName":"string",
-      "lastName":"string",
-      "documentType":"string",
-      "document":"string",
-      "phone":"number",
+      "email": "string",
+      "firstName": "string",
+      "lastName": "string",
+      "documentType": "string",
+      "document": "string",
+      "phone": "number",
       "corporate":{
-         "name":"string",
-         "tradeName":"string",
-         "stateInscription":"string",
-         "phone":"string"
-      }
+         "name": "string",
+         "tradeName": "string",
+         "stateInscription": "string",
+         "phone": "string"
+      },
+      "dob":"datetime"
    },
    "shippingInfo":[
       {
          "address":{
-            "addressType":"string",
-            "receiverName":"string",
-            "postalCode":"string",
-            "city":"string",
-            "state":"string",
-            "country":"string",
-            "street":"string",
-            "number":"string",
-            "neighborhood":"string",
-            "complement":"string",
-            "reference":"string"
+            "addressType": "string",
+            "receiverName": "string",
+            "postalCode": "string",
+            "city": "string",
+            "state": "string",
+            "country": "string",
+            "street": "string",
+            "number": "string",
+            "neighborhood": "string",
+            "complement": "string",
+            "reference": "string"
          },
          "deliveries":[
             {
                "item":{
-                  "sku":"string",
-                  "skuSellerId":"string"
+                  "sku": "string",
+                  "skuSellerId": "string"
                },
-               "selectedSla":"string",
-               "lockTTL":"string",
+               "selectedSla": "string",
+               "lockTTL": "string",
                "otd":{
-                  "shippingEstimate":"number",
-                  "transitTime":"number",
-                  "crossDockingTime":"number",
-                  "scheduledAt":"datetime",
-                  "scheduledPeriod":"string"
+                  "shippingEstimate": "number",
+                  "transitTime": "number",
+                  "crossDockingTime": "number",
+                  "scheduledAt": "datetime",
+                  "scheduledPeriod": "string"
                },
-               "trackingNumber":"string",
-               "sellerDeliveryId":"string",
-               "freightPrice":"number",
-               "freightCost":"number",
-               "additionalInfo":"string",
+               "trackingNumber": "string",
+               "sellerDeliveryId": "string",
+               "freightPrice": "number",
+               "freightCost": "number",
+               "additionalInfo": "string",
                "carrier":{
-                  "name":"string",
-                  "cnpj":"string"
+                  "name": "string",
+                  "cnpj": "string"
                },
                "tracking":{
-                  "description":"string",
-                  "occurredAt":"datetime",
-                  "controlPoint":"string"
+                  "description": "string",
+                  "occurredAt": "datetime",
+                  "controlPoint": "string"
                },
-               "invoice" : {
+               "invoice":{
                   "number": "number",
                   "value": "number",
                   "url": "string",
@@ -424,16 +453,39 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
                   "invoiceKey": "string"
                },
                "giftWrap":{
-                  "available":"number",
-                  "value":"number",
+                  "available": "number",
+                  "value": "number",
                   "giftCard":{
-                     "from":"string",
-                     "to":"string",
-                     "message":"string"
+                     "from": "string",
+                     "to": "string",
+                     "message": "string"
                   }
                }
             }
          ]
+      }
+   ],
+   "billingInfo":[
+      {
+         "address":{
+            "addressType": "string",
+            "receiverName": "string",
+            "postalCode": "string",
+            "city": "string",
+            "state": "string",
+            "country": "string",
+            "street": "string",
+            "number": "string",
+            "neighborhood": "string",
+            "complement": "string",
+            "reference": "string"
+         }
+      }
+   ],
+   "history":[
+      {
+         "status": "string",
+         "occurredDate": "datetime"
       }
    ]
 }
@@ -450,6 +502,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | lastUpdateAt | Data de atualização |
 | paymentMethods | Forma de pagamento |
 | paymentMethods.method | Métodos de pagamento ("BOLETO", "CARTAO")  |
+| paymentMethods.brand | Bandeira do cartão |
 | paymentMethods.amount | Total do pedido |
 | paymentMethods.installments | Número de parcelas  |
 | paymentMethods.paymentDueAt | Data do pagamento |
@@ -467,6 +520,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | clientProfileData.documentType | Tipo do documento pessoa física (CPF ou RG) |
 | clientProfileData.document | Número do documento |
 | clientProfileData.phone | Telefone do cliente |
+| clientProfileData.dob | Data de Nascimento do cliente |
 | clientProfileData.corporate.name | Nome da empresa |
 | clientProfileData.corporate.tradeName | Nome Fantasia |
 | clientProfileData.corporate.stateInscription | Inscrição estadual  |
@@ -521,6 +575,24 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | shippingInfo.deliveries.giftWrap.giftCard.from | Nome de quem está dando o presente |
 | shippingInfo.deliveries.giftWrap.giftCard.to | Nome de quem irá receber o presente |
 | shippingInfo.deliveries.giftWrap.giftCard.message | Mensagem que deverá ser enviada no cartão juntamente com o embrulho de presente |
+| billingInfo | Informação da cobrança |
+| billingInfo.address | Informação sobre o endereço de entrega |
+| billingInfo.address.addressType | Tipo do endereço (Residencial ou Comercial) |
+| billingInfo.address.receiverName | Nome da pessoa que irá receber o pedido |
+| billingInfo.address.postalCode | CEP do endereço |
+| billingInfo.address.city | Cidade |
+| billingInfo.address.state | Estado |
+| billingInfo.address.country | País |
+| billingInfo.address.street | Logradouro  |
+| billingInfo.address.number | Número ("S/N" quando não houver)  |
+| billingInfo.address.neighborhood | Bairro |
+| billingInfo.address.complement | Complemento |
+| billingInfo.address.reference | Ponto de referência |
+| history | Historico do pedido |
+| history.status | Status do pedido |
+| history.occurredDate | Data da mudança para o respectivo status |
+
+
 
 #### 6.2 - Stock
 
