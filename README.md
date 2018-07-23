@@ -228,6 +228,8 @@ Para integrar seu sistema e aproveitar ao máximo os recursos de notificações,
 #### 4.1 - URL de Callback
 
 É o endereço que será chamado pelo Buscapé Marketplace para notificar o parceiro que ocorreu algo novo no sistema. Se resume ao endereço de um serviço rest que a aplicação desenvolvida pelo parceiro saberá interpretar. Todas as chamadas deverão ter suporte ao método POST e deverão retornar o status 200 ou 201 em caso de sucesso na requisição.
+Obs. Caso a url seja de um marketplace, defina o vendedor na url do mesmo.
+Ex: /orders/seller/112211 ou  /orders/?seller=112211
 
 #### 4.2 - Aceite
 
