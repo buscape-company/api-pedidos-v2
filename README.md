@@ -551,6 +551,7 @@ Dependendo do status do Tracking alguns itens são obrigatórios:
 | shippingInfo.deliveries.additionalInfo | Informações adicionais sobre a entrega. |
 | shippingInfo.deliveries.otd | On Time Delivery-Tempo de separação/expedição e da transportadora |
 | shippingInfo.deliveries.otd.shippingEstimate | Estimativa de entrega. Ex: 5d = 5 dias, 5bd = 5 dias úteis |
+| shippingInfo.deliveries.otd.shippingEstimateDate | Data estimada da entrega |
 | shippingInfo.deliveries.otd.transitTime | Prazo de transporte para entrega do produto em dias úteis |
 | shippingInfo.deliveries.otd.crossDockingTime | Tempo de preparação/fabricação do produto em dias. Esse tempo é incluído no cálculo de frete. |
 | shippingInfo.deliveries.otd.scheduledAt | Data de agendamento da entrega |
